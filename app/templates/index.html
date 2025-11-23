@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Realtime Voice Pipeline API Playground</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎙️ Realtime Voice Pipeline API Playground</h1>
+      <p>Realtime voice processing with ElevenLabs TTS and Whisper STT</p>
+
+      <!-- Stats Cards -->
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Connection Status</div>
+          <div class="stat-value">
+            <span id="status" class="status status-disconnected"
+              >Disconnected</span
+            >
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Messages Sent</div>
+          <div class="stat-value" id="messagesSent">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Cache Hit Rate</div>
+          <div class="stat-value"><span id="cacheHit">0</span>%</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('tts')">
+          📢 Text-to-Speech
+        </button>
+        <button class="tab" onclick="switchTab('stt')">
+          🎤 Speech-to-Text
+        </button>
+      </div>
+
+      <!-- TTS Tab -->
+      <div id="tts-content" class="tab-content active">
+        <h3>Text-to-Speech (TTS)</h3>
+        <p>Convert text to speech using ElevenLabs</p>
+
+        <div class="controls">
+          <button id="ttsConnectBtn" onclick="connect()">
+            Connect WebSocket
+          </button>
+          <button id="ttsDisconnectBtn" onclick="disconnect()" disabled>
+            Disconnect
+          </button>
+          <br />
+          <input
+            type="text"
+            id="ttsInput"
+            placeholder="Enter text for TTS..."
+            disabled
+          />
+          <button id="ttsSendBtn" onclick="sendTTS()" disabled>
+            Convert to Speech
+          </button>
+        </div>
+      </div>
+
+      <!-- STT Tab -->
+      <div id="stt-content" class="tab-content">
+        <h3>Speech-to-Text (STT)</h3>
+        <p>Transcribe audio using Whisper</p>
+
+        <div class="controls">
+          <button id="sttConnectBtn" onclick="connect()">
+            Connect WebSocket
+          </button>
+          <button id="sttDisconnectBtn" onclick="disconnect()" disabled>
+            Disconnect
+          </button>
+          <br />
+          <div class="file-upload">
+            <input type="file" id="audioFile" accept="audio/*" disabled />
+            <button id="sttSendBtn" onclick="sendSTT()" disabled>
+              Transcribe Audio
+            </button>
+          </div>
+          <br />
+          <textarea
+            id="transcriptOutput"
+            placeholder="Transcript will appear here..."
+            readonly
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Log Console -->
+      <div class="log" id="log"></div>
+    </div>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
